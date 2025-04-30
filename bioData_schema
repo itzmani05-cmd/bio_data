@@ -20,15 +20,33 @@ const AddressSchema = new mongoose.Schema({
 });
 
 const AttemptSchema = new mongoose.Schema({
-  I: Number,
-  II: Number,
-  III: Number
+  I: { 
+    type: Number, 
+    required: true 
+  },
+  II: { 
+    type: Number, 
+    required: true 
+  },
+  III: { 
+    type: Number, 
+    required: true 
+  }
 });
 
 const MarksSchema = new mongoose.Schema({
-  maths: Number,
-  physics: Number,
-  chemistry: Number
+  maths: { 
+    type: Number, 
+    required: true 
+  },
+  physics: { 
+    type: Number, 
+    required: true 
+  },
+  chemistry: { 
+    type: Number, 
+    required: true 
+  }
 });
 
 const EducationSchema = new mongoose.Schema({
@@ -57,24 +75,49 @@ const SemesterSchema = new mongoose.Schema({
     type: Number, 
     required: true 
   },
-  course:[
+  course: [
     {
-      course_code : Number,
-      course_title: String,
-      credits: Number,
+      course_code: { 
+        type: Number, 
+        required: true 
+      },
+      course_title: { 
+        type: String, 
+        required: true 
+      },
+      credits: { 
+        type: Number, 
+        required: true 
+      },
       no_of_attempts: [
         {
-          mark: Number,
-          grade: String,
-          pass_fail: String
+          mark: { 
+            type: Number, 
+            required: true 
+          },
+          grade: { 
+            type: String, 
+            required: true 
+          },
+          pass_fail: { 
+            type: String, 
+            required: true 
+          }
         }
       ],
-      grade_point: Number,
-      attendance_grade: String,
-      remarks: String
+      grade_point: { 
+        type: Number, 
+        required: true 
+      },
+      attendance_grade: { 
+        type: String, 
+        required: true 
+      },
+      remarks: { 
+        type: String 
+      }
     }
-  ]
- 
+  ],
   exam_month_year: { 
     type: String 
   },
@@ -85,47 +128,65 @@ const SemesterSchema = new mongoose.Schema({
     type: String 
   },
   hosteller_or_day_scholar: { 
-    type: String 
+    type: String, 
+    enum: ['Hosteller', 'Day Scholar'], 
+    required: true 
   },
   faculty_advisor: { 
-    type: String 
+    type: String, 
+    required: true 
   }
 });
 
 const AcademicSemesterSummary = new mongoose.Schema({
   semester: { 
     type: String, 
+    required: true // Field is required
+  },
+  credits_registered: { 
+    type: Number, 
     required: true 
   },
-  credits_registered: Number,
-  credits_earned: Number,
-  gpa: Number,
-  rank: Number,
-  month_year_of_passing: String
+  credits_earned: { 
+    type: Number, 
+    required: true 
+  },
+  gpa: { 
+    type: Number, 
+    required: true 
+  },
+  rank: { 
+    type: Number, 
+    required: true 
+  },
+  month_year_of_passing: { 
+    type: String, 
+    required: true 
+  }
 });
 
 const CareerDetailSchema = new mongoose.Schema({
-  company: String,
-  date_of_recruitment: String,
-  position_offered: String,
-  salary_package: Number,
-  remarks: String
+  company: { 
+    type: String, 
+    required: true 
+  },
+  date_of_recruitment: { 
+    type: String, 
+    required: true 
+  },
+  position_offered: { 
+    type: String, 
+    required: true 
+  },
+  salary_package: { 
+    type: Number, 
+    required: true 
+  },
+  remarks: { 
+    type: String 
+  }
 });
 
-const CareerAfterSchema = new mongoose.Schema({
-  company: String,
-  date_of_recruitment: String,
-  position_held: String,
-  experience_years: Number,
-  remarks: String
-});
-
-const HigherStudySchema = new mongoose.Schema({
-  exam_name: String,
-  marks: Number,
-  rank: Number,
-  university_course: String
-});
 
 const bioData = new mongoose.Schema({
   student_roll_no: { 
@@ -194,7 +255,7 @@ const bioData = new mongoose.Schema({
     email: { 
       type: String, 
       required: true, 
-      match: /.+\@.+\..+/ 
+      match: /.+\@.+\..+/
     },
     permanent_address: AddressSchema
   },
@@ -204,9 +265,15 @@ const bioData = new mongoose.Schema({
       type: String, 
       required: true 
     },
-    occupation: String,
-    annual_income: Number,
-    mobile_no: Number,
+    occupation: { 
+      type: String 
+    },
+    annual_income: { 
+      type: Number 
+    },
+    mobile_no: { 
+      type: Number 
+    },
     email: { 
       type: String, 
       match: /.+\@.+\..+/ 
@@ -219,31 +286,51 @@ const bioData = new mongoose.Schema({
 
   extra_curricular_activities: [
     {
-      semester: Number,
-      activity: String
+      semester: { 
+        type: Number, 
+        required: true 
+      },
+      activity: { 
+        type: String, 
+        required: true 
+      }
     }
   ],
 
   academic_summary: {
     semesters: [AcademicSemesterSummary],
-    total_credits: Number,
-    cgpa: Number,
-    class_obtained: String,
-    overall_rank: Number,
-    conduct_certificate_no_date: String,
-    tc_no_date: String,
-    consolidated_grade_sheet_no_date: String,
-    provisional_certificate_no_date: String,
-    degree_certificate_no_date: String
+    total_credits: { 
+      type: Number 
+    },
+    cgpa: { 
+      type: Number 
+    },
+    class_obtained: { 
+      type: String 
+    },
+    overall_rank: { 
+      type: Number 
+    },
+    conduct_certificate_no_date: { 
+      type: String 
+    },
+    tc_no_date: { 
+      type: String 
+    },
+    consolidated_grade_sheet_no_date: { 
+      type: String 
+    },
+    provisional_certificate_no_date: { 
+      type: String 
+    },
+    degree_certificate_no_date: { 
+      type: String 
+    }
   },
 
   career_details: {
-    at_leaving: [CareerDetailSchema],
-    after_leaving: [CareerAfterSchema]
-  },
-
-  higher_studies: [HigherStudySchema]
+    at_leaving: [CareerDetailSchema]
+  }
 });
-
 
 module.exports = mongoose.model('BioData', bioData);
